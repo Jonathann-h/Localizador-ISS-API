@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento de la ISS en tiempo real</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+  <h1>Seguimiento de la Estación Espacial Internacional (ISS)</h1>
+  <div class="description">
+    <p>
+      La Estación Espacial Internacional (ISS) es un laboratorio orbital que 
+      sirve como un sitio para la investigación científica y tecnológica en 
+      microgravedad. Orbita la Tierra a una altitud de aproximadamente 400 km 
+      y viaja a una velocidad de alrededor de 28,000 km/h. La ISS es un 
+      esfuerzo conjunto de múltiples agencias espaciales, incluyendo NASA, 
+      Roscosmos, ESA, JAXA y CSA.
+      Alberga a astronautas de diversas nacionalidades, contribuyendo a avances científicos en múltiples disciplinas.
+    </p>
+  </div>
+  <div id="map"></div>
+  <div id="info">
+    <p><strong>Latitud:</strong> <span id="lat">0</span></p>
+    <p><strong>Longitud:</strong> <span id="lon">0</span></p>
+    <p><strong>Velocidad:</strong> <span id="speed">0</span> km/h</p>
+    <p><strong>Altitud:</strong> <span id="altitude">0</span> km</p>
+  </div>
+  
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
