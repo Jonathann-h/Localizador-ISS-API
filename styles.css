@@ -13,7 +13,7 @@ h1 {
 }
 
 #map {
-    height: 250px; /* altura del mapa */
+    height: 250px; /* Altura del mapa */
     width: 100%; /* ancho al 100% */
     border: 2px solid #000000; /* borde azul */
     border-radius: 10px; /* Bordes redondeados */

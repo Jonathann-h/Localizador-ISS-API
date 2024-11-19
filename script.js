@@ -15,7 +15,8 @@ let issIcon = L.icon({
   iconAnchor: [25, 25], // Punto de anclaje del icono
 });
 
-let marker = L.marker([0, 0], { icon: issIcon }).addTo(map); // Añadir marcador al mapa
+// Añadir marcador al mapa
+let marker = L.marker([0, 0], { icon: issIcon }).addTo(map); 
 
 function fetchISSData() {
   fetch(url) // Realiza la llamada a la API
