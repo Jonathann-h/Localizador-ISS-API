@@ -1,42 +1,38 @@
-// API para la ubicación actual de la ISS
-const url = 'http://api.open-notify.org/iss-now.json';
+const map = L.map('map').setView([0, 0], 3);
 
-let map = L.map('map').setView([0, 0], 2); // Inicializa el mapa centrado en coordenadas (0, 0)
-
-// Agregar un mapa base de OpenStreetMap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 18,
+  maxZoom: 18
 }).addTo(map);
 
-// Icono de la ISS
-let issIcon = L.icon({
+const issIcon = L.icon({
   iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/International_Space_Station.svg',
-  iconSize: [50, 50], // Tamaño del icono
-  iconAnchor: [25, 25], // Punto de anclaje del icono
+  iconSize: [50, 50],
+  iconAnchor: [25, 25],
 });
 
-// Añadir marcador al mapa
-let marker = L.marker([0, 0], { icon: issIcon }).addTo(map); 
+const marker = L.marker([0, 0], { icon: issIcon }).addTo(map);
+const pathLine = L.polyline([], { color: '#4e79a7' }).addTo(map);
 
-function fetchISSData() {
-  fetch(url) // Realiza la llamada a la API
-    .then(response => response.json())
-    .then(data => {
-      const { latitude, longitude } = data.iss_position; // Extrae latitud y longitud
+const apiUrl = 'https://api.wheretheiss.at/v1/satellites/25544';
 
-      // Actualizar la posición del marcador en el mapa
-      marker.setLatLng([latitude, longitude]);
-      map.setView([latitude, longitude], 3); // Cambia la vista del mapa a la posición actual
+async function fetchISSData() {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
-      // Mostrar los datos en pantalla
-      document.getElementById('lat').textContent = latitude;
-      document.getElementById('lon').textContent = longitude;
-    })
-    .catch(error => console.log('Error al obtener datos de la ISS:', error)); // Manejo de errores
+    const { latitude, longitude, velocity, altitude } = data;
+
+    marker.setLatLng([latitude, longitude]);
+    pathLine.addLatLng([latitude, longitude]);
+
+    document.getElementById('lat').textContent = latitude.toFixed(2);
+    document.getElementById('lon').textContent = longitude.toFixed(2);
+    document.getElementById('vel').textContent = velocity.toFixed(0);
+    document.getElementById('alt').textContent = altitude.toFixed(0);
+  } catch (error) {
+    console.error('Error al obtener datos de la ISS:', error);
+  }
 }
 
-// Actualizar cada 5 segundos para seguimiento en tiempo real
 setInterval(fetchISSData, 5000);
-
-// Llamada inicial para cargar datos
 fetchISSData();

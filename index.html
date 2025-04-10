@@ -6,47 +6,8 @@
   <title>OrbitaX | Seguimiento ISS en tiempo real</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(ellipse at bottom, #0a0f24 0%, #000 100%);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-    }
-
-    h1 {
-      text-align: center;
-      font-weight: 600;
-      color: #4e79a7;
-    }
-
-    #map {
-      height: 400px;
-      width: 100%;
-      max-width: 700px;
-      border-radius: 12px;
-      margin: 1rem 0;
-    }
-
-    .info-card {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 1rem 2rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    .flag {
-      width: 50px;
-      margin-top: 10px;
-    }
-  </style>
 </head>
 
 <body>
@@ -58,47 +19,12 @@
     <p><strong>Longitud:</strong> <span id="lon">0</span></p>
     <p><strong>Velocidad:</strong> <span id="vel">0</span> km/h</p>
     <p><strong>Altitud:</strong> <span id="alt">0</span> km</p>
-    <img class="flag" src="https://flagcdn.com/w320/py.png" alt="Bandera de Paraguay">
   </div>
 
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([0, 0], 3);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18
-    }).addTo(map);
-
-    const issIcon = L.icon({
-      iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/International_Space_Station.svg',
-      iconSize: [50, 50],
-      iconAnchor: [25, 25],
-    });
-
-    const marker = L.marker([0, 0], { icon: issIcon }).addTo(map);
-    const pathLine = L.polyline([], { color: '#4e79a7' }).addTo(map);
-
-    const apiUrl = 'https://api.wheretheiss.at/v1/satellites/25544';
-
-    async function fetchISSData() {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      const { latitude, longitude, velocity, altitude } = data;
-
-      marker.setLatLng([latitude, longitude]);
-      pathLine.addLatLng([latitude, longitude]);
-
-      document.getElementById('lat').textContent = latitude.toFixed(2);
-      document.getElementById('lon').textContent = longitude.toFixed(2);
-      document.getElementById('vel').textContent = velocity.toFixed(0);
-      document.getElementById('alt').textContent = altitude.toFixed(0);
-    }
-
-    setInterval(fetchISSData, 5000);
-    fetchISSData();
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
