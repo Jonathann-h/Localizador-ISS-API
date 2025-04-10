@@ -1,7 +1,8 @@
+// ISS Tracker
 const map = L.map('map').setView([0, 0], 3);
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 18
+  maxZoom: 18,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
 const issIcon = L.icon({
@@ -13,32 +14,60 @@ const issIcon = L.icon({
 const marker = L.marker([0, 0], { icon: issIcon }).addTo(map);
 const pathLine = L.polyline([], { color: '#4e79a7' }).addTo(map);
 
-const apiUrl = 'https://api.wheretheiss.at/v1/satellites/25544';
+// Theme Toggle
+const themeToggle = {
+  btn: document.getElementById('toggle-theme'),
+  icon: document.querySelector('.theme-icon'),
+  
+  init() {
+    this.loadPreference();
+    this.btn.addEventListener('click', () => this.toggle());
+  },
+  
+  toggle() {
+    document.body.classList.toggle('light-mode');
+    this.update();
+    this.savePreference();
+  },
+  
+  update() {
+    const isLight = document.body.classList.contains('light-mode');
+    this.icon.innerHTML = isLight ? '&#127769;' : '&#9728;&#65039;';
+    this.btn.setAttribute('aria-label', isLight ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+  },
+  
+  savePreference() {
+    localStorage.setItem('themePreference', 
+      document.body.classList.contains('light-mode') ? 'light' : 'dark');
+  },
+  
+  loadPreference() {
+    if (localStorage.getItem('themePreference') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+    this.update();
+  }
+};
 
-async function fetchISSData() {
+// ISS Data Fetch
+const fetchISSData = async () => {
   try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    const { latitude, longitude, velocity, altitude } = data;
-
+    const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+    const { latitude, longitude, velocity, altitude } = await response.json();
+    
     marker.setLatLng([latitude, longitude]);
     pathLine.addLatLng([latitude, longitude]);
-
+    
     document.getElementById('lat').textContent = latitude.toFixed(2);
     document.getElementById('lon').textContent = longitude.toFixed(2);
-    document.getElementById('vel').textContent = velocity.toFixed(0);
-    document.getElementById('alt').textContent = altitude.toFixed(0);
+    document.getElementById('vel').textContent = Math.round(velocity);
+    document.getElementById('alt').textContent = Math.round(altitude);
   } catch (error) {
-    console.error('Error al obtener datos de la ISS:', error);
+    console.error('Error fetching ISS data:', error);
   }
-}
+};
 
-setInterval(fetchISSData, 5000);
+// Initialize
+themeToggle.init();
 fetchISSData();
-
-const toggleThemeBtn = document.getElementById('toggle-theme');
-
-toggleThemeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('light-mode');
-});
+setInterval(fetchISSData, 5000);
