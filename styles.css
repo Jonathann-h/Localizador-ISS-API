@@ -45,14 +45,22 @@ body {
     text-align: center;
   }
   
-  #toggle-theme {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #4e79a7;
-    color: #fff;
+  .theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: transparent;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    transform: scale(1.2) rotate(20deg);
   }
   
   .easter-egg {
@@ -83,6 +91,10 @@ body {
   @media (max-width: 600px) {
     #map {
       height: 300px;
+    }
+  
+    .theme-toggle {
+      font-size: 1.4rem;
     }
   }
   

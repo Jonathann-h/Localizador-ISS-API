@@ -37,7 +37,6 @@ async function fetchISSData() {
 setInterval(fetchISSData, 5000);
 fetchISSData();
 
-// Dark / Light mode toggle
 const toggleThemeBtn = document.getElementById('toggle-theme');
 
 toggleThemeBtn.addEventListener('click', () => {

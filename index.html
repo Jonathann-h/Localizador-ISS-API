@@ -12,7 +12,12 @@
 
 <body>
 
-  <h1>OrbitaX - ISS Tracker</h1>
+  <button id="toggle-theme" class="theme-toggle">
+    <span class="icon-moon">&#127769;</span>
+    <span class="icon-sun">&#9728;&#65039;</span>
+  </button>
+
+  <h1>ISS Tracker</h1>
 
   <div class="info-card">
     <p><strong>Latitud:</strong> <span id="lat">0</span></p>
@@ -29,7 +34,6 @@
 
   <footer>
     <p>Datos actualizados cada 5 segundos | &copy; 2025</p>
-    <button id="toggle-theme">Cambiar Modo</button>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
