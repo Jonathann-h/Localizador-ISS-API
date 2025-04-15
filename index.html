@@ -11,6 +11,10 @@
 </head>
 
 <body>
+  <select id="language-selector" class="lang-select">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+  </select> 
 
   <button id="toggle-theme" class="theme-toggle" aria-label="Cambiar tema">
     <span class="theme-icon">&#127769;</span>
@@ -19,10 +23,10 @@
   <h1>ISS Tracker</h1>
 
   <div class="info-card">
-    <p><strong>Latitud:</strong> <span id="lat">0</span></p>
-    <p><strong>Longitud:</strong> <span id="lon">0</span></p>
-    <p><strong>Velocidad:</strong> <span id="vel">0</span> km/h</p>
-    <p><strong>Altitud:</strong> <span id="alt">0</span> km</p>
+    <p><span class="label" id="label-lat">Latitud:</span> <span id="lat">0</span></p>
+    <p><span class="label" id="label-lon">Longitud:</span> <span id="lon">0</span></p>
+    <p><span class="label" id="label-vel">Velocidad:</span> <span id="vel">0</span> km/h</p>
+    <p><span class="label" id="label-alt">Altitud:</span> <span id="alt">0</span> km</p>   
   </div>
 
   <div id="map"></div>

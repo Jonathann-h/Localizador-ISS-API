@@ -85,3 +85,41 @@ document.getElementById('recenter-btn').addEventListener('click', () => {
 themeToggle.init();
 fetchISSData();
 setInterval(fetchISSData, 5000);
+
+const translations = {
+  es: {
+    title: "ISS Tracker",
+    lat: "Latitud",
+    lon: "Longitud",
+    vel: "Velocidad",
+    alt: "Altitud",
+    footer: "Datos actualizados cada 5 segundos | © 2025",
+    recenter: "📍 Centrar en la ISS"
+  },
+  en: {
+    title: "ISS Tracker",
+    lat: "Latitude",
+    lon: "Longitude",
+    vel: "Speed",
+    alt: "Altitude",
+    footer: "Data updates every 5 seconds | © 2025",
+    recenter: "📍 Center on ISS"
+  }
+};
+
+const languageSelector = document.getElementById('language-selector');
+
+function updateLanguage(lang) {
+  document.querySelector('h1').textContent = translations[lang].title;
+  document.querySelector('footer p').textContent = translations[lang].footer;
+  document.querySelector('#recenter-btn').textContent = translations[lang].recenter;
+
+  document.getElementById('label-lat').textContent = translations[lang].lat + ':';
+  document.getElementById('label-lon').textContent = translations[lang].lon + ':';
+  document.getElementById('label-vel').textContent = translations[lang].vel + ':';
+  document.getElementById('label-alt').textContent = translations[lang].alt + ':';
+}
+
+languageSelector.addEventListener('change', () => {
+  updateLanguage(languageSelector.value);
+});
