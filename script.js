@@ -123,3 +123,20 @@ function updateLanguage(lang) {
 languageSelector.addEventListener('change', () => {
   updateLanguage(languageSelector.value);
 });
+
+// Guardar idioma seleccionado
+languageSelector.addEventListener('change', () => {
+  const selected = languageSelector.value;
+  updateLanguage(selected);
+  localStorage.setItem('lang', selected);
+});
+
+// Al cargar, aplicar idioma guardado
+const savedLang = localStorage.getItem('lang');
+if (savedLang) {
+  languageSelector.value = savedLang;
+  updateLanguage(savedLang);
+} else {
+  updateLanguage(languageSelector.value);
+}
+
