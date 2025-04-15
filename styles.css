@@ -102,4 +102,19 @@ body {
       font-size: 1.4rem;
     }
   }
+  .recenter-btn {
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    background: #4e79a7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .recenter-btn:hover {
+    background: #35608f;
+  }
   

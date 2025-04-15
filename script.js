@@ -1,5 +1,7 @@
 // ISS Tracker
 let firstLoad = true; //Bandera para verificar si es la primera carga
+let lastLatLng = [0, 0]; // Última posición 
+
 const map = L.map('map').setView([0, 0], 3);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
@@ -58,12 +60,13 @@ const fetchISSData = async () => {
     
     marker.setLatLng([latitude, longitude]);
     pathLine.addLatLng([latitude, longitude]);
+    lastLatLng = [latitude, longitude]; // Actualiza la última posición
 
     if(firstLoad) { // Si es la primera carga, centra el mapa en la posición inicial
       map.setView([latitude, longitude], 3);
       firstLoad = false;
     }
-    marker.bindTooltip(`Lat: ${latitude.toFixed(2)}<br>Lon: ${longitude.toFixed(2)}`).openTooltip(); // Tooltip con la posición actual
+    //marker.bindTooltip(`Lat: ${latitude.toFixed(2)}<br>Lon: ${longitude.toFixed(2)}`).openTooltip(); // Tooltip con la posición actual
         
     document.getElementById('lat').textContent = latitude.toFixed(2);
     document.getElementById('lon').textContent = longitude.toFixed(2);
@@ -73,6 +76,10 @@ const fetchISSData = async () => {
     console.error('Error fetching ISS data:', error);
   }
 };
+
+document.getElementById('recenter-btn').addEventListener('click', () => {
+  map.setView(lastLatLng, 4);
+});
 
 // Initialize
 themeToggle.init();
