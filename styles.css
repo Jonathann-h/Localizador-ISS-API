@@ -31,7 +31,7 @@ body {
 /* Header y título */
 .header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
   position: relative;
   width: 100%;
 }
@@ -39,7 +39,7 @@ body {
 h1 {
   font-weight: 600;
   color: var(--primary-color);
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   font-size: 2.5rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   position: relative;
@@ -77,6 +77,23 @@ h1::after {
   font-size: 1.1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.info-card p span:last-child {
+  /*font-family: 'Courier New', monospace;*/
+  font-weight: 600;
+  min-width: 100px;
+  text-align: right;
+  margin-left: 1rem;
+  padding-right: 0;
+}
+
+/* Ajuste para responsive */
+@media (max-width: 768px) {
+  .info-card p span:last-child {
+    min-width: 80px;
+  }
 }
 
 .label {
@@ -249,17 +266,17 @@ footer {
   h1 {
     font-size: 2rem;
   }
-  
   #map {
     height: 350px;
   }
-  
   .info-card {
     padding: 1rem;
   }
-  
   .info-card p {
     font-size: 1rem;
+  }
+  .info-card p span:last-child {
+    min-width: 80px;
   }
 }
 
